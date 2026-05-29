@@ -3,6 +3,8 @@ package com.loopers.infrastructure.user;
 import com.loopers.domain.user.EncodedPassword;
 import com.loopers.domain.user.PasswordEncoder;
 import com.loopers.domain.user.RawPassword;
+import com.loopers.support.error.CoreException;
+import com.loopers.support.error.ErrorType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +21,7 @@ public class BCryptPasswordEncoder implements PasswordEncoder {
     @Override
     public EncodedPassword encode(RawPassword rawPassword) {
         if (rawPassword == null) {
-            throw new IllegalArgumentException("rawPassword must not be null");
+            throw new CoreException(ErrorType.BAD_REQUEST, "비밀번호는 비어있을 수 없습니다.");
         }
         return new EncodedPassword(delegate.encode(rawPassword.value()));
     }
