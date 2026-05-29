@@ -1,5 +1,6 @@
 package com.loopers.domain.product;
 
+import com.loopers.domain.shared.Money;
 import com.loopers.support.error.CoreException;
 import com.loopers.support.error.ErrorType;
 import lombok.RequiredArgsConstructor;
@@ -15,25 +16,30 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public ProductModel createProduct(String name, String description, Long price, Integer stock) {
-        ProductModel product = new ProductModel(name, description, price, stock);
+    public Product createProduct(String name, String description, Money price, Integer stock, Long brandId) {
+        Product product = Product.create(name, description, price, stock, brandId);
         return productRepository.save(product);
     }
 
     @Transactional(readOnly = true)
-    public ProductModel getProduct(Long id) {
+    public Product getProduct(Long id) {
         return productRepository.find(id)
             .orElseThrow(() -> new CoreException(ErrorType.NOT_FOUND, "[id = " + id + "] 상품을 찾을 수 없습니다."));
     }
 
     @Transactional(readOnly = true)
-    public List<ProductModel> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getProducts(Long brandId, ProductSortType sort, int page, int size) {
+        return productRepository.findAll(brandId, sort, page, size);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByIds(List<Long> ids) {
+        return productRepository.findAllByIds(ids);
     }
 
     @Transactional
-    public ProductModel updateProduct(Long id, String name, String description, Long price, Integer stock) {
-        ProductModel product = getProduct(id);
+    public Product updateProduct(Long id, String name, String description, Money price, Integer stock) {
+        Product product = getProduct(id);
         product.update(name, description, price, stock);
         return productRepository.save(product);
     }
