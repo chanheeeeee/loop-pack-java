@@ -66,34 +66,6 @@ class MoneyTest {
             assertThat(result).isEqualTo(Money.of(3_500L));
         }
 
-        @DisplayName("minus 는 두 금액의 차를 반환한다.")
-        @Test
-        void minus_returnsDifference() {
-            // arrange
-            Money a = Money.of(3_000L);
-            Money b = Money.of(1_000L);
-
-            // act
-            Money result = a.minus(b);
-
-            // assert
-            assertThat(result).isEqualTo(Money.of(2_000L));
-        }
-
-        @DisplayName("minus 결과가 음수가 되면, BAD_REQUEST 예외가 발생한다.")
-        @Test
-        void minus_throwsBadRequest_whenResultIsNegative() {
-            // arrange
-            Money a = Money.of(1_000L);
-            Money b = Money.of(2_000L);
-
-            // act
-            CoreException result = assertThrows(CoreException.class, () -> a.minus(b));
-
-            // assert
-            assertThat(result.getErrorType()).isEqualTo(ErrorType.BAD_REQUEST);
-        }
-
         @DisplayName("multiply 는 수량을 곱한 금액을 반환한다.")
         @Test
         void multiply_returnsProduct() {
@@ -105,20 +77,6 @@ class MoneyTest {
 
             // assert
             assertThat(result).isEqualTo(Money.of(4_500L));
-        }
-
-        @DisplayName("isGreaterThanOrEqual 은 금액 비교 결과를 반환한다.")
-        @Test
-        void isGreaterThanOrEqual_comparesAmount() {
-            // arrange
-            Money a = Money.of(2_000L);
-            Money b = Money.of(2_000L);
-            Money c = Money.of(1_000L);
-
-            // assert
-            assertThat(a.isGreaterThanOrEqual(b)).isTrue();
-            assertThat(a.isGreaterThanOrEqual(c)).isTrue();
-            assertThat(c.isGreaterThanOrEqual(a)).isFalse();
         }
     }
 }

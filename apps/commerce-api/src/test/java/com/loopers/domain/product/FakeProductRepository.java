@@ -77,9 +77,4 @@ public class FakeProductRepository implements ProductRepository {
     public void delete(Long id) {
         store.remove(id);
     }
-
-    @Override
-    public void deleteByBrandId(Long brandId) {
-        store.values().removeIf(p -> brandId != null && brandId.equals(p.getBrandId()));
-    }
 }

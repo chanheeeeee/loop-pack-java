@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 주문 도메인 서비스.
- * 이미 조회된 상품들을 받아 재고 차감(Product의 책임)과 주문 생성(Order의 책임)을 협력시킨다.
- * 상태를 갖지 않으며, 저장(영속성)은 Application Layer가 담당한다.
+ * 주문 도메인 서비스. 조회된 상품들의 재고 차감과 주문 생성을 협력시킨다.
  */
 @Component
 public class OrderService {
@@ -25,7 +23,7 @@ public class OrderService {
             .map(line -> {
                 Product product = line.product();
                 int quantity = line.quantity();
-                product.decreaseStock(quantity); // 재고 부족 시 도메인에서 예외
+                product.decreaseStock(quantity);
                 return OrderItem.of(product.getId(), product.getName(), product.getPrice(), Quantity.of(quantity));
             })
             .toList();

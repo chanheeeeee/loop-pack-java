@@ -22,6 +22,4 @@ public interface ProductRepository {
     boolean existsById(Long id);
 
     void delete(Long id);
-
-    void deleteByBrandId(Long brandId);
 }

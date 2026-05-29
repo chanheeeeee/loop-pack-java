@@ -34,18 +34,10 @@ public record Money(BigDecimal amount) {
         return new Money(this.amount.add(other.amount));
     }
 
-    public Money minus(Money other) {
-        return new Money(this.amount.subtract(other.amount));
-    }
-
     public Money multiply(int quantity) {
         if (quantity < 0) {
             throw new CoreException(ErrorType.BAD_REQUEST, "수량은 0 이상이어야 합니다.");
         }
         return new Money(this.amount.multiply(BigDecimal.valueOf(quantity)));
-    }
-
-    public boolean isGreaterThanOrEqual(Money other) {
-        return this.amount.compareTo(other.amount) >= 0;
     }
 }

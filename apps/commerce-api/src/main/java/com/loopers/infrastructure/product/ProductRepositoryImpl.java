@@ -59,11 +59,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         productJpaRepository.deleteById(id);
     }
 
-    @Override
-    public void deleteByBrandId(Long brandId) {
-        productJpaRepository.deleteByBrandId(brandId);
-    }
-
     /**
      * LATEST / PRICE_ASC 는 저장소에서 정렬한다.
      * LIKES_DESC 는 좋아요 집계가 필요하므로 여기서는 최신순으로 가져오고, 조합 단계에서 재정렬한다.

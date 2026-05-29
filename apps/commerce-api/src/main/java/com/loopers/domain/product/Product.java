@@ -109,13 +109,4 @@ public class Product extends BaseEntity {
         this.stock -= quantity;
     }
 
-    /**
-     * 재고를 복원(증가)한다. (예: 주문 취소)
-     */
-    public void increaseStock(int quantity) {
-        if (quantity <= 0) {
-            throw new CoreException(ErrorType.BAD_REQUEST, "증가 수량은 1 이상이어야 합니다.");
-        }
-        this.stock += quantity;
-    }
 }

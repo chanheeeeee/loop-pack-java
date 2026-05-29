@@ -49,9 +49,4 @@ public class ProductService {
         getProduct(id); // 존재 여부 확인
         productRepository.delete(id);
     }
-
-    @Transactional
-    public void deleteProductsByBrand(Long brandId) {
-        productRepository.deleteByBrandId(brandId);
-    }
 }
